@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  LambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: org.edem.LambdaHandler::handleRequest
+      Runtime: java21
+      CodeUri: ./target/eda-sns
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt NotificationTopic.TopicName
+      Events:
+        S3Event:
+          Type: S3
+          Properties:
+            Bucket: !Ref UploadBucket
+            Events: s3:ObjectCreated:*
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !Ref NotificationTopic
+
+  UploadBucket:
+    Type: AWS::S3::Bucket
+
+  NotificationTopic:
+    Type: AWS::SNS::Topic
