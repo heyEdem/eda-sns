@@ -6,7 +6,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: org.edem.LambdaHandler::handleRequest
-      Runtime: java21
+      Runtime: java17
       CodeUri: ./target/eda-sns
       Policies:
         - SNSPublishMessagePolicy:
