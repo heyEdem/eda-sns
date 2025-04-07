@@ -1,0 +1,27 @@
+version = 0.1
+
+[default]
+[default.global.parameters]
+stack_name = "sam-sns"
+
+[dev]
+[dev.deploy]
+[dev.deploy.parameters]
+stack_name = "sam-sns-dev"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-dev"
+s3_prefix = "sam-sns-dev"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Environment=dev EmailSubscriptionParameter=akatoaugustine@gmail.com BucketName=sam-sns-bucket"
+
+[prod]
+[prod.deploy]
+[prod.deploy.parameters]
+stack_name = "sam-sns-prod"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-prod"
+s3_prefix = "sam-sns-prod"
+region = "eu-central-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Environment=prod EmailSubscriptionParameter=juliusadjeteysowah@gmail.com BucketName=week8lab-bokiti"
