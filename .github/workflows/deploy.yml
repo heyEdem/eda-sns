@@ -110,4 +110,4 @@ jobs:
             --config-env ${{ steps.set-env.outputs.ENV}} \  
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
-            --s3-bucket imagery-app \
+            --s3-bucket eba-sam-sns-bucket \
