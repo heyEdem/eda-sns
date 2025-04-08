@@ -104,10 +104,20 @@ jobs:
       - name: SAM Build
         run: sam build
 
-      - name: SAM Deploy
+#      - name: SAM Deploy
+#        run: |
+#          sam deploy \
+#            --config-env ${{ steps.set-env.outputs.ENV}} \
+#            --no-fail-on-empty-changeset \
+#            --no-confirm-changeset \
+#            --s3-bucket imagery-app \
+#
+      - name: SAM Deploy to Development
+        if: github.event_name == 'push'
         run: |
-          sam deploy \
-            --config-env ${{ steps.set-env.outputs.ENV}} \  
-            --no-fail-on-empty-changeset \
-            --no-confirm-changeset \
-            --s3-bucket imagery-app \
+          sam deploy --config-env dev --parameter-overrides Environment=dev EmailAddress=${{ secrets.EMAIL_ADDRESS_DEV }} --no-confirm-changeset --capabilities CAPABILITY_IAM
+
+      # - name: SAM Deploy to Production
+      #   if: github.event_name == 'release'
+      #   run: |
+      #     sam deploy --config-env prod --parameter-overrides Environment=prod EmailAddress=${{ secrets.EMAIL_ADDRESS_PROD }} --no-confirm-changeset --capabilities CAPABILITY_IAM
