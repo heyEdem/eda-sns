@@ -4,6 +4,16 @@ version = 0.1
 [default.global.parameters]
 stack_name = "sam-sns"
 
+
+[default.deploy.parameters]
+stack_name = "s3notif"
+resolve_s3 = true
+s3_prefix = "s3notif"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "Environment=\"dev\" EmailToSubScribe=\"akatoaugustine@gmail.com\""
 [dev]
 [dev.deploy]
 [dev.deploy.parameters]
